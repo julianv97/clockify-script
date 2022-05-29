@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-await-in-loop */
 import * as puppeteer from 'puppeteer';
 
@@ -33,12 +34,22 @@ import * as puppeteer from 'puppeteer';
     '#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > div > a',
   );
 
-  const listOfHoursInputs = await page.$$('time-duration > input');
+  /*  const listOfHoursInputs = await page.$$('time-duration > input');
 
   for (let i = 0; i < 5; i += 1) {
     await listOfHoursInputs[i].click({ clickCount: 3 });
     await listOfHoursInputs[i].press('Backspace');
     await listOfHoursInputs[i].type('400');
+  } */
+
+  const listOfDotsButtons = await page.$$(
+    '#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(1) > td > time-duration > a > img',
+  );
+
+  for (let i = 0; i < listOfDotsButtons.length; i += 1) {
+    await page.evaluate((element) => {
+      element.click();
+    }, listOfDotsButtons[i]);
   }
 
   await page.waitForTimeout(20000);

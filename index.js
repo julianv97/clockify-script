@@ -36,10 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+/* eslint-disable max-len */
 /* eslint-disable no-await-in-loop */
 var puppeteer = require("puppeteer");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var browser, page, _a, _b, _c, timesheetButton, listOfHoursInputs, i;
+    var browser, page, _a, _b, _c, timesheetButton, listOfDotsButtons, i;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0: return [4 /*yield*/, puppeteer.launch({ headless: false })];
@@ -96,28 +97,24 @@ var puppeteer = require("puppeteer");
             case 15:
                 // TODO: improve this selector
                 _d.sent();
-                return [4 /*yield*/, page.$$('time-duration > input')];
+                return [4 /*yield*/, page.$$('#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(1) > td > time-duration > a > img')];
             case 16:
-                listOfHoursInputs = _d.sent();
+                listOfDotsButtons = _d.sent();
                 i = 0;
                 _d.label = 17;
             case 17:
-                if (!(i < 5)) return [3 /*break*/, 22];
-                return [4 /*yield*/, listOfHoursInputs[i].click({ clickCount: 3 })];
+                if (!(i < listOfDotsButtons.length)) return [3 /*break*/, 20];
+                return [4 /*yield*/, page.evaluate(function (element) {
+                        element.click();
+                    }, listOfDotsButtons[i])];
             case 18:
                 _d.sent();
-                return [4 /*yield*/, listOfHoursInputs[i].press('Backspace')];
+                _d.label = 19;
             case 19:
-                _d.sent();
-                return [4 /*yield*/, listOfHoursInputs[i].type('400')];
-            case 20:
-                _d.sent();
-                _d.label = 21;
-            case 21:
                 i += 1;
                 return [3 /*break*/, 17];
-            case 22: return [4 /*yield*/, page.waitForTimeout(20000)];
-            case 23:
+            case 20: return [4 /*yield*/, page.waitForTimeout(20000)];
+            case 21:
                 _d.sent();
                 browser.close();
                 return [2 /*return*/];
