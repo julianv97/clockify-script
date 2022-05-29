@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import * as puppeteer from 'puppeteer';
 
 (async () => {
@@ -14,5 +15,33 @@ import * as puppeteer from 'puppeteer';
     await page.type('#password', 'Holacomova?97'),
   ]);
 
-  // browser.close();
+  await page.click('button[type="submit"]');
+
+  await page.waitForSelector('.cl-navbar-toggler');
+  await page.click('.cl-navbar-toggler');
+
+  await page.waitForSelector('a[routerlink="/timesheet"]');
+  const timesheetButton = await page.$('a[routerlink="/timesheet"]');
+  await page.evaluate((element) => {
+    element.click();
+  }, timesheetButton);
+
+  await page.waitForSelector('.timesheet-row-component.ng-star-inserted');
+
+  // TODO: improve this selector
+  await page.click(
+    '#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > div > a',
+  );
+
+  const listOfHoursInputs = await page.$$('time-duration > input');
+
+  for (let i = 0; i < 5; i += 1) {
+    await listOfHoursInputs[i].click({ clickCount: 3 });
+    await listOfHoursInputs[i].press('Backspace');
+    await listOfHoursInputs[i].type('400');
+  }
+
+  await page.waitForTimeout(20000);
+
+  browser.close();
 })();
