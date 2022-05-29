@@ -61,11 +61,14 @@ const password = process.env.PASSWORD;
       element.click();
     }, listOfDotsButtons[i]);
 
-    await page.type('#descriptionName', TASKS_PER_DAY[i]);
+    const descriptionInput = await page.$('#descriptionName');
+    await descriptionInput.click({ clickCount: 3 });
+    await descriptionInput.press('Backspace');
+    await descriptionInput.type(TASKS_PER_DAY[i]);
 
     await page.click('.cl-btn.cl-btn-primary');
 
-    if (i < 4) await page.waitForTimeout(8000);
+    if (i < 4) await page.waitForTimeout(7000);
   }
 
   browser.close();

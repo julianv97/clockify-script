@@ -45,7 +45,7 @@ require('dotenv').config();
 var email = process.env.EMAIL;
 var password = process.env.PASSWORD;
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var browser, page, _a, _b, _c, timesheetButton, listOfHoursInputs, i, listOfDotsButtons, i;
+    var browser, page, _a, _b, _c, timesheetButton, listOfHoursInputs, i, listOfDotsButtons, i, descriptionInput;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0: return [4 /*yield*/, puppeteer.launch({ headless: false })];
@@ -125,30 +125,39 @@ var password = process.env.PASSWORD;
                 i = 0;
                 _d.label = 24;
             case 24:
-                if (!(i < constants_1.LABORABLE_DAYS)) return [3 /*break*/, 30];
+                if (!(i < constants_1.LABORABLE_DAYS)) return [3 /*break*/, 33];
                 if (constants_1.TASKS_PER_DAY[i] === constants_1.DAYS_TYPES.FERIADO) {
-                    return [3 /*break*/, 29];
+                    return [3 /*break*/, 32];
                 }
                 return [4 /*yield*/, page.evaluate(function (element) {
                         element.click();
                     }, listOfDotsButtons[i])];
             case 25:
                 _d.sent();
-                return [4 /*yield*/, page.type('#descriptionName', constants_1.TASKS_PER_DAY[i])];
+                return [4 /*yield*/, page.$('#descriptionName')];
             case 26:
-                _d.sent();
-                return [4 /*yield*/, page.click('.cl-btn.cl-btn-primary')];
+                descriptionInput = _d.sent();
+                return [4 /*yield*/, descriptionInput.click({ clickCount: 3 })];
             case 27:
                 _d.sent();
-                if (!(i < 4)) return [3 /*break*/, 29];
-                return [4 /*yield*/, page.waitForTimeout(8000)];
+                return [4 /*yield*/, descriptionInput.press('Backspace')];
             case 28:
                 _d.sent();
-                _d.label = 29;
+                return [4 /*yield*/, descriptionInput.type(constants_1.TASKS_PER_DAY[i])];
             case 29:
+                _d.sent();
+                return [4 /*yield*/, page.click('.cl-btn.cl-btn-primary')];
+            case 30:
+                _d.sent();
+                if (!(i < 4)) return [3 /*break*/, 32];
+                return [4 /*yield*/, page.waitForTimeout(7000)];
+            case 31:
+                _d.sent();
+                _d.label = 32;
+            case 32:
                 i += 1;
                 return [3 /*break*/, 24];
-            case 30:
+            case 33:
                 browser.close();
                 return [2 /*return*/];
         }
