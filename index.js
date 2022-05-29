@@ -150,7 +150,7 @@ var password = process.env.PASSWORD;
             case 30:
                 _d.sent();
                 if (!(i < 4)) return [3 /*break*/, 32];
-                return [4 /*yield*/, page.waitForTimeout(7000)];
+                return [4 /*yield*/, page.waitForTimeout(8000)];
             case 31:
                 _d.sent();
                 _d.label = 32;
