@@ -68,7 +68,7 @@ const password = process.env.PASSWORD;
 
     await page.click('.cl-btn.cl-btn-primary');
 
-    if (i < 4) await page.waitForTimeout(7000);
+    if (i < 4) await page.waitForTimeout(8000);
   }
 
   browser.close();
