@@ -36,11 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+/* eslint-disable no-continue */
 /* eslint-disable max-len */
 /* eslint-disable no-await-in-loop */
 var puppeteer = require("puppeteer");
+var constants_1 = require("./constants");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var browser, page, _a, _b, _c, timesheetButton, listOfDotsButtons, i;
+    var browser, page, _a, _b, _c, timesheetButton, listOfHoursInputs, i, listOfDotsButtons, i;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0: return [4 /*yield*/, puppeteer.launch({ headless: false })];
@@ -92,30 +94,62 @@ var puppeteer = require("puppeteer");
                 return [4 /*yield*/, page.waitForSelector('.timesheet-row-component.ng-star-inserted')];
             case 14:
                 _d.sent();
-                // TODO: improve this selector
                 return [4 /*yield*/, page.click('#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > div > a')];
             case 15:
-                // TODO: improve this selector
                 _d.sent();
-                return [4 /*yield*/, page.$$('#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(1) > td > time-duration > a > img')];
+                return [4 /*yield*/, page.$$('time-duration > input')];
             case 16:
-                listOfDotsButtons = _d.sent();
+                listOfHoursInputs = _d.sent();
                 i = 0;
                 _d.label = 17;
             case 17:
-                if (!(i < listOfDotsButtons.length)) return [3 /*break*/, 20];
+                if (!(i < constants_1.LABORABLE_DAYS)) return [3 /*break*/, 22];
+                if (constants_1.TASKS_PER_DAY[i] === constants_1.DAYS_TYPES.FERIADO) {
+                    return [3 /*break*/, 21];
+                }
+                return [4 /*yield*/, listOfHoursInputs[i].click({ clickCount: 3 })];
+            case 18:
+                _d.sent();
+                return [4 /*yield*/, listOfHoursInputs[i].press('Backspace')];
+            case 19:
+                _d.sent();
+                return [4 /*yield*/, listOfHoursInputs[i].type(constants_1.HOURS_PER_DAY)];
+            case 20:
+                _d.sent();
+                _d.label = 21;
+            case 21:
+                i += 1;
+                return [3 /*break*/, 17];
+            case 22: return [4 /*yield*/, page.$$('time-duration > a')];
+            case 23:
+                listOfDotsButtons = _d.sent();
+                i = 0;
+                _d.label = 24;
+            case 24:
+                if (!(i < constants_1.LABORABLE_DAYS)) return [3 /*break*/, 30];
+                if (constants_1.TASKS_PER_DAY[i] === constants_1.DAYS_TYPES.FERIADO) {
+                    return [3 /*break*/, 29];
+                }
                 return [4 /*yield*/, page.evaluate(function (element) {
                         element.click();
                     }, listOfDotsButtons[i])];
-            case 18:
+            case 25:
                 _d.sent();
-                _d.label = 19;
-            case 19:
+                return [4 /*yield*/, page.type('#descriptionName', constants_1.TASKS_PER_DAY[i])];
+            case 26:
+                _d.sent();
+                return [4 /*yield*/, page.click('.cl-btn.cl-btn-primary')];
+            case 27:
+                _d.sent();
+                if (!(i < 4)) return [3 /*break*/, 29];
+                return [4 /*yield*/, page.waitForTimeout(8000)];
+            case 28:
+                _d.sent();
+                _d.label = 29;
+            case 29:
                 i += 1;
-                return [3 /*break*/, 17];
-            case 20: return [4 /*yield*/, page.waitForTimeout(20000)];
-            case 21:
-                _d.sent();
+                return [3 /*break*/, 24];
+            case 30:
                 browser.close();
                 return [2 /*return*/];
         }

@@ -1,6 +1,10 @@
+/* eslint-disable no-continue */
 /* eslint-disable max-len */
 /* eslint-disable no-await-in-loop */
 import * as puppeteer from 'puppeteer';
+import {
+  LABORABLE_DAYS, HOURS_PER_DAY, TASKS_PER_DAY, DAYS_TYPES,
+} from './constants';
 
 (async () => {
   const browser = await puppeteer.launch({ headless: false });
@@ -29,30 +33,38 @@ import * as puppeteer from 'puppeteer';
 
   await page.waitForSelector('.timesheet-row-component.ng-star-inserted');
 
-  // TODO: improve this selector
   await page.click(
     '#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > div > a',
   );
 
-  /*  const listOfHoursInputs = await page.$$('time-duration > input');
+  const listOfHoursInputs = await page.$$('time-duration > input');
 
-  for (let i = 0; i < 5; i += 1) {
+  for (let i = 0; i < LABORABLE_DAYS; i += 1) {
+    if (TASKS_PER_DAY[i] === DAYS_TYPES.FERIADO) {
+      continue;
+    }
     await listOfHoursInputs[i].click({ clickCount: 3 });
     await listOfHoursInputs[i].press('Backspace');
-    await listOfHoursInputs[i].type('400');
-  } */
+    await listOfHoursInputs[i].type(HOURS_PER_DAY);
+  }
 
-  const listOfDotsButtons = await page.$$(
-    '#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(1) > td > time-duration > a > img',
-  );
+  const listOfDotsButtons = await page.$$('time-duration > a');
 
-  for (let i = 0; i < listOfDotsButtons.length; i += 1) {
+  for (let i = 0; i < LABORABLE_DAYS; i += 1) {
+    if (TASKS_PER_DAY[i] === DAYS_TYPES.FERIADO) {
+      continue;
+    }
+
     await page.evaluate((element) => {
       element.click();
     }, listOfDotsButtons[i]);
-  }
 
-  await page.waitForTimeout(20000);
+    await page.type('#descriptionName', TASKS_PER_DAY[i]);
+
+    await page.click('.cl-btn.cl-btn-primary');
+
+    if (i < 4) await page.waitForTimeout(8000);
+  }
 
   browser.close();
 })();
