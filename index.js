@@ -41,6 +41,9 @@ exports.__esModule = true;
 /* eslint-disable no-await-in-loop */
 var puppeteer = require("puppeteer");
 var constants_1 = require("./constants");
+require('dotenv').config();
+var email = process.env.EMAIL;
+var password = process.env.PASSWORD;
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var browser, page, _a, _b, _c, timesheetButton, listOfHoursInputs, i, listOfDotsButtons, i;
     return __generator(this, function (_d) {
@@ -61,16 +64,12 @@ var constants_1 = require("./constants");
             case 5:
                 _d.sent();
                 _b = (_a = Promise).all;
-                return [4 /*yield*/, page.type('#email', 'julian.vicente@radiumrocket.com')];
+                return [4 /*yield*/, page.type('#email', email)];
             case 6:
-                _c = [
-                    _d.sent()
-                ];
-                return [4 /*yield*/, page.type('#password', 'Holacomova?97')];
+                _c = [_d.sent()];
+                return [4 /*yield*/, page.type('#password', password)];
             case 7:
-                _b.apply(_a, [_c.concat([
-                        _d.sent()
-                    ])]);
+                _b.apply(_a, [_c.concat([_d.sent()])]);
                 return [4 /*yield*/, page.click('button[type="submit"]')];
             case 8:
                 _d.sent();

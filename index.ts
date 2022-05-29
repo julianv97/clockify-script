@@ -6,6 +6,11 @@ import {
   LABORABLE_DAYS, HOURS_PER_DAY, TASKS_PER_DAY, DAYS_TYPES,
 } from './constants';
 
+require('dotenv').config();
+
+const email = process.env.EMAIL;
+const password = process.env.PASSWORD;
+
 (async () => {
   const browser = await puppeteer.launch({ headless: false });
 
@@ -15,10 +20,7 @@ import {
   await page.waitForSelector('#email');
   await page.waitForSelector('#password');
 
-  Promise.all([
-    await page.type('#email', 'julian.vicente@radiumrocket.com'),
-    await page.type('#password', 'Holacomova?97'),
-  ]);
+  Promise.all([await page.type('#email', email), await page.type('#password', password)]);
 
   await page.click('button[type="submit"]');
 
