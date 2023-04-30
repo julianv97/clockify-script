@@ -36,7 +36,7 @@ const password = process.env.PASSWORD || '';
   await page.waitForSelector('.timesheet-row-component.ng-star-inserted');
 
   await page.click(
-    '#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > div > a',
+    '#layout-main > div > timesheet2 > div > div > div > div:nth-child(2) > div > table > tbody > tr.timesheet-row-component.timesheet-row-component-with-project.ng-star-inserted > td > div > a',
   );
 
   const listOfHoursInputs = await page.$$('time-duration > input');
@@ -70,9 +70,9 @@ const password = process.env.PASSWORD || '';
     await descriptionInput.type(TASKS_PER_DAY[i]);
 
     await page.click('.cl-btn.cl-btn-primary');
-
+    console.log(`Dia ${i + 1} cargado correctamente`);
     if (i < 4) await page.waitForTimeout(8000);
   }
-
+  console.log('Horas cargadas correctamente');
   browser.close();
 })();

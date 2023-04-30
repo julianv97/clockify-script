@@ -93,7 +93,7 @@ var password = process.env.PASSWORD || '';
                 return [4 /*yield*/, page.waitForSelector('.timesheet-row-component.ng-star-inserted')];
             case 14:
                 _d.sent();
-                return [4 /*yield*/, page.click('#layout-main > timesheet2 > div > div > div > div:nth-child(2) > table > tbody > tr:nth-child(1) > td > div > a')];
+                return [4 /*yield*/, page.click('#layout-main > div > timesheet2 > div > div > div > div:nth-child(2) > div > table > tbody > tr.timesheet-row-component.timesheet-row-component-with-project.ng-star-inserted > td > div > a')];
             case 15:
                 _d.sent();
                 return [4 /*yield*/, page.$$('time-duration > input')];
@@ -137,9 +137,8 @@ var password = process.env.PASSWORD || '';
                 return [4 /*yield*/, page.$('#descriptionName')];
             case 26:
                 descriptionInput = _d.sent();
-                if (!descriptionInput) {
+                if (!descriptionInput)
                     throw new Error('No description input found');
-                }
                 return [4 /*yield*/, descriptionInput.click({ clickCount: 3 })];
             case 27:
                 _d.sent();
@@ -152,6 +151,7 @@ var password = process.env.PASSWORD || '';
                 return [4 /*yield*/, page.click('.cl-btn.cl-btn-primary')];
             case 30:
                 _d.sent();
+                console.log("Dia ".concat(i + 1, " cargado correctamente"));
                 if (!(i < 4)) return [3 /*break*/, 32];
                 return [4 /*yield*/, page.waitForTimeout(8000)];
             case 31:
@@ -161,6 +161,7 @@ var password = process.env.PASSWORD || '';
                 i += 1;
                 return [3 /*break*/, 24];
             case 33:
+                console.log('Horas cargadas correctamente');
                 browser.close();
                 return [2 /*return*/];
         }

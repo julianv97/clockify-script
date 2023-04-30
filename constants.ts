@@ -7,9 +7,9 @@ export const DAYS_TYPES = {
 };
 
 export const TASKS_PER_DAY: string[] = [
-  'Revisión PRs. Implementación push notifications iOS',
-  'Revisión PRs. Implementación push notifications Android',
-  DAYS_TYPES.FERIADO,
-  'Revisión PRs. Resolución bugs regression.(RRQP-467-468-475)',
-  'Revisión PRs. Resolución bugs regression.(RRQP-469-470). Implementación de nuevas reglas de lint',
+  'Revisión PRs. Soporte técnico equipo',
+  'Revisión PRs. Documentación técnica',
+  'Revisión de PRs. Implementación cambios servidor core',
+  'Revisión de PRs. Relevamiento push notifications',
+  'Revisión de PRs. Implementación cambios servidor core',
 ];
