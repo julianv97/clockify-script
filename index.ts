@@ -71,7 +71,7 @@ const password = process.env.PASSWORD || '';
 
     await page.click('.cl-btn.cl-btn-primary');
     console.log(`Dia ${i + 1} cargado correctamente`);
-    if (i < 4) await page.waitForTimeout(8000);
+    if (i < 5) await page.waitForTimeout(10000);
   }
   console.log('Horas cargadas correctamente');
   browser.close();

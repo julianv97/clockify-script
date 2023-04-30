@@ -152,8 +152,8 @@ var password = process.env.PASSWORD || '';
             case 30:
                 _d.sent();
                 console.log("Dia ".concat(i + 1, " cargado correctamente"));
-                if (!(i < 4)) return [3 /*break*/, 32];
-                return [4 /*yield*/, page.waitForTimeout(8000)];
+                if (!(i < 5)) return [3 /*break*/, 32];
+                return [4 /*yield*/, page.waitForTimeout(10000)];
             case 31:
                 _d.sent();
                 _d.label = 32;
