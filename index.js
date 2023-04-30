@@ -42,8 +42,8 @@ exports.__esModule = true;
 var puppeteer = require("puppeteer");
 var constants_1 = require("./constants");
 require('dotenv').config();
-var email = process.env.EMAIL;
-var password = process.env.PASSWORD;
+var email = process.env.EMAIL || '';
+var password = process.env.PASSWORD || '';
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var browser, page, _a, _b, _c, timesheetButton, listOfHoursInputs, i, listOfDotsButtons, i, descriptionInput;
     return __generator(this, function (_d) {
@@ -137,6 +137,9 @@ var password = process.env.PASSWORD;
                 return [4 /*yield*/, page.$('#descriptionName')];
             case 26:
                 descriptionInput = _d.sent();
+                if (!descriptionInput) {
+                    throw new Error('No description input found');
+                }
                 return [4 /*yield*/, descriptionInput.click({ clickCount: 3 })];
             case 27:
                 _d.sent();

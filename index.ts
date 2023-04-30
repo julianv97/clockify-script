@@ -8,8 +8,8 @@ import {
 
 require('dotenv').config();
 
-const email = process.env.EMAIL;
-const password = process.env.PASSWORD;
+const email = process.env.EMAIL || '';
+const password = process.env.PASSWORD || '';
 
 (async () => {
   const browser = await puppeteer.launch({ headless: false });
@@ -62,6 +62,9 @@ const password = process.env.PASSWORD;
     }, listOfDotsButtons[i]);
 
     const descriptionInput = await page.$('#descriptionName');
+
+    if (!descriptionInput) throw new Error('No description input found');
+
     await descriptionInput.click({ clickCount: 3 });
     await descriptionInput.press('Backspace');
     await descriptionInput.type(TASKS_PER_DAY[i]);

@@ -1,5 +1,5 @@
-export const LABORABLE_DAYS: number = 5;
-export const HOURS_PER_DAY: string = '400';
+export const LABORABLE_DAYS = 5;
+export const HOURS_PER_DAY = '800';
 
 export const DAYS_TYPES = {
   FERIADO: 'FERIADO',
